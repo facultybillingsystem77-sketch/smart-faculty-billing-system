@@ -1,26 +1,14 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { UserPayload } from "@/lib/auth"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import { WorklogForm } from "@/components/worklog-form"
-import { WorklogList } from "@/components/worklog-list"
+import * as React from 'react';
+import { UserPayload } from '@/lib/auth';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface WorkloadLogsProps {
-  user: UserPayload
+  user: UserPayload;
 }
 
 export function WorkloadLogs({ user }: WorkloadLogsProps) {
-  const [showForm, setShowForm] = React.useState(false)
-  const [refreshKey, setRefreshKey] = React.useState(0)
-
-  const handleFormSubmit = () => {
-    setShowForm(false)
-    setRefreshKey(prev => prev + 1)
-  }
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -30,41 +18,21 @@ export function WorkloadLogs({ user }: WorkloadLogsProps) {
             Track and manage your faculty workload activities
           </p>
         </div>
-        <Button onClick={() => setShowForm(true)}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Work Log
-        </Button>
       </div>
-
-      {showForm && (
-        <Card className="animate-fade-in">
-          <CardHeader>
-            <CardTitle>Log New Work Activity</CardTitle>
-            <CardDescription>
-              Enter details about your work activity. AI will help classify and validate your entry.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <WorklogForm 
-              user={user} 
-              onSubmit={handleFormSubmit}
-              onCancel={() => setShowForm(false)}
-            />
-          </CardContent>
-        </Card>
-      )}
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent Work Logs</CardTitle>
+          <CardTitle>Workload Management</CardTitle>
           <CardDescription>
-            Your logged work activities and their validation status
+            This module is being updated to work with the new system architecture
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <WorklogList user={user} refreshKey={refreshKey} />
+          <p className="text-sm text-muted-foreground">
+            Workload entry and management features will be available soon.
+          </p>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

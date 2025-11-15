@@ -5,14 +5,14 @@ import { AnalyticsDashboard } from "@/components/analytics-dashboard"
 
 export default async function AnalyticsPage() {
   const session = await getSession()
-  
+
   if (!session) {
     redirect("/login")
   }
 
   return (
-    <DashboardLayout user={session}>
-      <AnalyticsDashboard user={session} />
+    <DashboardLayout user={session.user}>
+      <AnalyticsDashboard user={session.user} />
     </DashboardLayout>
   )
 }

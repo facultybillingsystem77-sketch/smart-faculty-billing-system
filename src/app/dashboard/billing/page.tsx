@@ -11,8 +11,8 @@ export default async function BillingPage() {
   }
 
   return (
-    <DashboardLayout user={session}>
-      <BillingDashboard user={session} />
+    <DashboardLayout user={session.user}>
+      <BillingDashboard user={session.user} />
     </DashboardLayout>
   )
 }

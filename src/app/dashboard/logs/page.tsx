@@ -11,8 +11,8 @@ export default async function LogsPage() {
   }
 
   return (
-    <DashboardLayout user={session}>
-      <WorkloadLogs user={session} />
+    <DashboardLayout user={session.user}>
+      <WorkloadLogs user={session.user} />
     </DashboardLayout>
   )
 }

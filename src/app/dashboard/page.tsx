@@ -5,14 +5,14 @@ import { DashboardContent } from "@/components/dashboard-content"
 
 export default async function Dashboard() {
   const session = await getSession()
-  
+
   if (!session) {
     redirect("/login")
   }
 
   return (
-    <DashboardLayout user={session}>
-      <DashboardContent user={session} />
+    <DashboardLayout user={session.user}>
+      <DashboardContent user={session.user} />
     </DashboardLayout>
   )
 }

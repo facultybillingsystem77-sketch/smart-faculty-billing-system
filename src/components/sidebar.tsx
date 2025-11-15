@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,16 +17,11 @@ import {
   DollarSign,
   Activity,
 } from "lucide-react"
-import { deleteSession } from "@/lib/auth"
-import { useRouter } from "next/navigation"
+import { supabase } from "@/lib/supabase/client"
+import { UserPayload } from "@/lib/auth"
 
 interface SidebarProps {
-  user: {
-    id: number
-    name: string
-    email: string
-    role: "admin" | "faculty"
-  }
+  user: UserPayload
 }
 
 export function Sidebar({ user }: SidebarProps) {
@@ -34,8 +29,9 @@ export function Sidebar({ user }: SidebarProps) {
   const router = useRouter()
 
   const handleLogout = async () => {
-    await deleteSession()
+    await supabase.auth.signOut()
     router.push("/login")
+    router.refresh()
   }
 
   const facultyMenuItems = [
@@ -85,7 +81,7 @@ export function Sidebar({ user }: SidebarProps) {
     },
   ]
 
-  const menuItems = user.role === "admin" ? adminMenuItems : facultyMenuItems
+  const menuItems = (user.role === "admin" || user.role === "super_admin") ? adminMenuItems : facultyMenuItems
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-card">
